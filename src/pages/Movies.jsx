@@ -9,25 +9,10 @@ const Movies = () => {
   const location = useLocation();
   const [content, setContent] = useState([]);
   const [request, setRequest] = useState(search ?? '');
-  const [q, setQ] = useState('');
 
   const onInputChange = e => {
     setRequest(e.currentTarget.value);
     setSearchParams({ search: e.currentTarget.value });
-  };
-
-  const resetFieldts = () => {
-    setRequest('');
-  };
-
-  const onSubmit = e => {
-    e.preventDefault();
-    if (request.trim('') === '') {
-      alert('Please, enter field');
-      return;
-    }
-    setQ(request);
-    resetFieldts();
   };
 
   useEffect(() => {
@@ -37,22 +22,12 @@ const Movies = () => {
       setContent([...results]);
     };
     loadingContent(search);
-    // }, []);
   }, [search, request]);
-
-  useEffect(() => {
-    if (q === '') return;
-    const loadingContent = async q => {
-      const { results } = await fatchSearchMovies(q);
-      setContent([...results]);
-    };
-    loadingContent(q);
-  }, [q]);
 
   return (
     <main>
       <h1>Welcome movies</h1>
-      <form onSubmit={onSubmit}>
+      <form>
         <input
           name="request"
           type="text"
@@ -61,9 +36,6 @@ const Movies = () => {
           value={request}
           onChange={onInputChange}
         />
-        <button type="submit">
-          <span>Search</span>
-        </button>
       </form>
       <List state={location} content={content} />
     </main>
