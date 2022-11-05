@@ -37,8 +37,8 @@ const Movies = () => {
       setContent([...results]);
     };
     loadingContent(search);
-  }, []);
-  // }, [search, request]);
+    // }, []);
+  }, [search, request]);
 
   useEffect(() => {
     if (q === '') return;
