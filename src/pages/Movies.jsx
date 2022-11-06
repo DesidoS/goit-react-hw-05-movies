@@ -14,6 +14,10 @@ const Movies = () => {
     setRequest(e.currentTarget.value);
   };
 
+  const resetFieldts = () => {
+    setRequest('');
+  };
+
   useEffect(() => {
     const search = searchParams.get('search');
     if (!search) return;
@@ -23,10 +27,6 @@ const Movies = () => {
     };
     loadingContent(search);
   }, [searchParams]);
-
-  const resetFieldts = () => {
-    setRequest('');
-  };
 
   const onSubmit = e => {
     e.preventDefault();
