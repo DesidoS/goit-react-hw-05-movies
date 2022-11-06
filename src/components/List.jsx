@@ -24,6 +24,3 @@ List.propTypes = {
     })
   ),
 };
-List.propTypes = {
-  location: PropTypes.object.isRequired,
-};
