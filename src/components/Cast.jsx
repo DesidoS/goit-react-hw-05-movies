@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { fatchMovieCast } from '../api/index';
@@ -41,8 +40,4 @@ export const Cast = () => {
       </ul>
     </>
   );
-};
-
-Cast.propTypes = {
-  movieId: PropTypes.string.isRequired,
 };

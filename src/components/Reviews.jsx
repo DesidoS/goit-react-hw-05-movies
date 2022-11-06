@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { fatchMovieReviews } from '../api/index';
@@ -27,8 +26,4 @@ export const Reviews = () => {
       <p>{content}</p>
     </>
   );
-};
-
-Reviews.propTypes = {
-  movieId: PropTypes.string.isRequired,
 };
