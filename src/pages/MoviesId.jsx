@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { fatchMovieId } from '../api/index';
 import { useState, useEffect } from 'react';
 import { Outlet, useLocation, useParams } from 'react-router-dom';
@@ -66,4 +67,8 @@ export const MoviesId = () => {
       <Outlet />
     </main>
   );
+};
+MoviesId.propTypes = {
+  movieId: PropTypes.string.isRequired,
+  location: PropTypes.object.isRequired,
 };
