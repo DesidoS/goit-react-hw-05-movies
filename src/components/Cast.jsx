@@ -1,7 +1,8 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { fatchMovieCast } from '../api/index';
-import { LinkItem, Img } from './List.styled';
+import { LinkItem, Gallery, GalleryItem } from './List.styled';
+import { nanoid } from 'nanoid';
 
 export const Cast = () => {
   const [content, setContent] = useState([]);
@@ -18,26 +19,26 @@ export const Cast = () => {
   return (
     <>
       <h1>Cast</h1>
-      <ul>
-        {content.map(({ id, title, name, profile_path }) => {
+      <Gallery>
+        {content.map(({ title, name, profile_path }) => {
           return (
-            <>
-              <LinkItem key={id}>{title ?? name}</LinkItem>
+            <LinkItem key={nanoid()}>
               {profile_path ? (
-                <Img
+                <GalleryItem
                   src={`https://image.tmdb.org/t/p/w500` + profile_path}
                   alt={title ?? name}
                 />
               ) : (
-                <Img
+                <GalleryItem
                   src={`https://achcity.com/images/photos/medium/article31267.jpg`}
                   alt={title ?? name}
                 />
               )}
-            </>
+              <p>{title ?? name}</p>
+            </LinkItem>
           );
         })}
-      </ul>
+      </Gallery>
     </>
   );
 };
