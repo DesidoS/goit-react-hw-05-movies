@@ -5,13 +5,12 @@ import { useLocation } from 'react-router-dom';
 
 export const Home = () => {
   const location = useLocation();
-
   const [content, setContent] = useState([]);
 
   useEffect(() => {
     const loadingContent = async () => {
       const { results } = await fetchTrend();
-      setContent([...results]);
+      setContent(results);
     };
     loadingContent();
   }, []);

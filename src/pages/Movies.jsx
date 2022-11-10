@@ -1,17 +1,12 @@
-import { fatchSearchMovies } from '../api/index';
 import { useState, useEffect } from 'react';
-import { List } from '../components/List';
 import { useSearchParams, useLocation } from 'react-router-dom';
-import {
-  SearchForm,
-  SearchFormButton,
-  SearchFormButtonLabel,
-  SearchFormInput,
-} from './Movies.styled';
+import { fatchSearchMovies } from '../api/index';
+import { List } from '../components/List';
+import { Form, FormButton, FormButtonLabel, FormInput } from './Movies.styled';
 
 const Movies = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [content, setContent] = useState([]);
   const [query, setQuery] = useState('');
 
@@ -20,10 +15,19 @@ const Movies = () => {
     if (!search) return;
     const loadingContent = async search => {
       const { results } = await fatchSearchMovies(search);
-      setContent([...results]);
+      setContent(results);
     };
     loadingContent(search);
   }, [searchParams]);
+
+  useEffect(() => {
+    if (!query) return;
+    const loadingContent = async q => {
+      const { results } = await fatchSearchMovies(q);
+      setContent(results);
+    };
+    loadingContent(query);
+  }, [query]);
 
   const onSubmit = e => {
     e.preventDefault();
@@ -35,28 +39,19 @@ const Movies = () => {
     form.reset();
   };
 
-  useEffect(() => {
-    if (query === '') return;
-    const loadingContent = async q => {
-      const { results } = await fatchSearchMovies(q);
-      setContent([...results]);
-    };
-    loadingContent(query);
-  }, [query]);
-
   return (
     <main>
-      <SearchForm onSubmit={onSubmit}>
-        <SearchFormInput
+      <Form onSubmit={onSubmit}>
+        <FormInput
           name="request"
           type="text"
           autoFocus
           placeholder="Search movies"
         />
-        <SearchFormButton type="submit">
-          <SearchFormButtonLabel>🔎</SearchFormButtonLabel>
-        </SearchFormButton>
-      </SearchForm>
+        <FormButton type="submit">
+          <FormButtonLabel>🔎</FormButtonLabel>
+        </FormButton>
+      </Form>
       <List state={location} content={content} />
     </main>
   );
